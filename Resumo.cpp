@@ -122,12 +122,3 @@ FUNÇÕES
 
 // 1--1 erro 1- -1 = 2 1-1=0
 
-comeco {
-  int variavel = 1 + 2;
-}
-
-compilado.c
-int main(int args) {
-  int variavel = 1+2;
-  return 0;
-}
