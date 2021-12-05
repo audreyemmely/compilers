@@ -1,16 +1,24 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TOKEN
+{
+  char value[1000];
+};
 
 int main()
 {
   FILE *pFile;
   pFile = fopen("file.naw", "r");
 
-  char test[100];
+  char teste;
 
-  test[0] = fgetc(pFile);
-  test[0] = fgetc(pFile);
-  test[0] = fgetc(pFile);
-  printf("%c", test[0]);
+  FILE *pFile2 = pFile;
 
+  printf("%c", fgetc(pFile2));
+  printf("%c", fgetc(pFile));
+
+  getchar();
+  fclose(pFile);
   return 0;
 }
