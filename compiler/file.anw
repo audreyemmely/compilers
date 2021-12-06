@@ -1,4 +1,12 @@
 start {
-  int a = [1,2];
-  int b = !a;
+
+  function int sumUp(float a, float b) {
+    return a + b | !a;
+  }
+
+  loop (1,10) {
+    int charaa = 1;
+    charaa = -charaa + 1;
+    put (sumUp(1, 2));
+  }
 }

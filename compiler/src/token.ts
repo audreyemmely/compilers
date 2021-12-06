@@ -16,6 +16,12 @@ export class Token {
       `V: ${this.value} C: ${this.category} Cn: ${this.categoryName}`,
     );
   }
+
+  toLogFormated(linha: number, column: number): void {
+    console.info(
+      `              [${linha}, ${column}] (${this.category}, ${this.categoryName}) {${this.value}}`,
+    );
+  }
 }
 
 type TableCategoryTokenType =
@@ -26,7 +32,10 @@ type TableCategoryTokenType =
   | 'ASSIGNMENT'
   | 'RELATIONAL'
   | 'RESERVED'
-  | 'BOOLEAN';
+  | 'BOOLEAN'
+  | 'CONSTANT'
+  | 'ARITHMETIC'
+  | 'UNARY';
 
 export const TableCategoryToken = {
   SIGNAL: 1,
@@ -37,4 +46,7 @@ export const TableCategoryToken = {
   RELATIONAL: 6,
   RESERVED: 7,
   BOOLEAN: 8,
+  CONSTANT: 9,
+  ARITHMETIC: 10,
+  UNARY: 11,
 };

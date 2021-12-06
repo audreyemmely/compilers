@@ -46,6 +46,7 @@ export class Reconizer {
       '{': true,
       '}': true,
       ',': true,
+      '.': true,
       ';': true,
     };
 
@@ -81,7 +82,23 @@ export class Reconizer {
   static isReserved(value: string): boolean {
     const reserveds = {
       int: true,
+      float: true,
+      char: true,
+      string: true,
+      bool: true,
+      undefined: true,
+      if: true,
+      else: true,
+      elseif: true,
+      loop: true,
+      while: true,
+      do: true,
       start: true,
+      get: true,
+      put: true,
+      function: true,
+      return: true,
+      size: true,
     };
     return !!reserveds[value];
   }

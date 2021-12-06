@@ -3,11 +3,10 @@ void main() {
 
   int inteiro = 1;
   float flutuante = 1.0;
-  char caractere = 'C';
   string palavra = 'palavra';
   bool booleano = false;
 
-  tipo[] lista = [1, 2, 3];
+  <tipo>[] lista = [1, 2, 3];
 
   //Conversão de qualquer tipo para booleano
 
@@ -114,7 +113,7 @@ FUNÇÕES
   };
 
   FUNÇÃO PRINCIPAL
-  init {
+  start {
 
   }
 */

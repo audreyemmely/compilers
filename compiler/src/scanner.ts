@@ -16,6 +16,10 @@ export class Scanner {
     12: true,
     14: true,
     15: true,
+    17: true,
+    18: true,
+    20: true,
+    21: true,
   };
 
   private nextChar(): string {
@@ -45,7 +49,7 @@ export class Scanner {
           } else if (rz.isLetterLowerCase(char)) {
             value += char;
             state = 1;
-          } else if (rz.isDigit(char) || char === '-') {
+          } else if (rz.isDigit(char)) {
             value += char;
             state = 3;
           } else if (char === '=') {
@@ -64,6 +68,15 @@ export class Scanner {
           } else if (rz.isRelationalUnique(char)) {
             value += char;
             state = 11;
+          } else if (rz.isLetterUpperCase(char)) {
+            value += char;
+            state = 16;
+          } else if (char === '*' || char === '/') {
+            value += char;
+            state = 18;
+          } else if (char === '-' || char === '+') {
+            value += char;
+            state = 19;
           } else {
             throw new Error(
               `Caractere inválido: '${char}'\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column} | char ${char}`,
@@ -188,6 +201,34 @@ export class Scanner {
           return new Token(value, 'STRING');
         case 15:
           return new Token(value, 'SIGNAL');
+        case 16:
+          if (rz.isLetterUpperCase(char) || char === '_') {
+            value += char;
+            state = 16;
+          } else state = 17;
+          break;
+        case 17:
+          this.backColumn();
+          return new Token(value, 'CONSTANT');
+        case 18:
+          return new Token(value, 'ARITHMETIC');
+        case 19:
+          if (char === ' ') {
+            state = 20;
+          } else if (rz.isDigit(char) || rz.isLetter(char)) {
+            state = 21;
+          } else {
+            throw new Error(
+              `Expressão aritmética inválida. \n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+            );
+          }
+          break;
+        case 20:
+          this.backColumn();
+          return new Token(value, 'ARITHMETIC');
+        case 21:
+          this.backColumn();
+          return new Token(value, 'UNARY');
         default:
           throw new Error(
             `Valor não indentificado. '${value}'\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
@@ -213,7 +254,7 @@ export class Scanner {
       if (!token) {
         return;
       }
-      token.toString();
+      token.toLogFormated(this.lineCount, this.column - token.value.length + 1);
       process.stdout.write('\n');
     }
   }

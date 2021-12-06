@@ -8,4 +8,5 @@ const file = new FileHandler(
   (line, lineCount) => scanner.processLine(line, lineCount),
   'file.anw',
 );
+
 file.readLineByLine();

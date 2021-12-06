@@ -1,10 +1,18 @@
 IDENTIFICADORES
   (a...z)(A..Z|0..9|a...z)*
 NUMEROS
-  (0..9)+
+  (-?)(0..9)+(.?1)(0..9)*
 PONTUACAO
   ; [] () {} ,
 OPERADORES RELACIONAIS
   > | >= | < | <= | == | != | & | | | !
 OPERADORES ATRIBUIÇÃO
  =
+OPERADORES ARITMETICOS
++ - * /
+PALAVRAS RESERVADAS
+...
+STRING
+'(qualquer coisa)*'
+CONSTANTE
+(A..Z)+(_)*(A..Z)*
