@@ -6,7 +6,7 @@ const scanner = new Scanner();
 
 const file = new FileHandler(
   (line, lineCount) => scanner.processLine(line, lineCount),
-  'file.anw',
+  './programas/helloWorld.anw',
 );
 
 file.readLineByLine();

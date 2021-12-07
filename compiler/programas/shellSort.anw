@@ -1,0 +1,22 @@
+start {
+  function int[] shellSort(int[] array) {
+    int n = array.size;
+    int gap = (int) array.size / 2;
+
+    for (; gap > 0; gap = (int) gap/2) {
+      loop (int i; gap; n;) {
+        int temp = array[i];
+        
+        int j;
+        for (j = i; j >= gap & array[j - gap] > temp; j = j - gap) {
+          array[j] = array[j - gap];
+        }
+
+        array[j] = temp;
+
+      }
+    }
+
+    return array;
+  }
+};

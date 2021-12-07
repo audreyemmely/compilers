@@ -1,0 +1,16 @@
+start {
+  function int fibonacci(int limite) {
+    int fib = 0;
+    int aux = 0;
+    int n;
+
+    while (fib < limite) {
+      put (fib + '-');
+      fib = fib + aux;
+      aux = n;
+      n = fib;
+    }
+
+    return n;
+  }
+};

@@ -98,7 +98,7 @@ export class Scanner {
           this.backColumn();
           if (rz.isBoolean(value)) return new Token(value, 'BOOLEAN');
           else if (rz.isReserved(value)) {
-            if (char !== ' ') {
+            if (char !== ' ' && char !== '[' && char !== ';' && char !== ')') {
               throw new Error(
                 `Palavra reservada usada incorretamente. '${value}'\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
               );

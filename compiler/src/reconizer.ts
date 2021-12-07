@@ -92,6 +92,7 @@ export class Reconizer {
       elseif: true,
       loop: true,
       while: true,
+      for: true,
       do: true,
       start: true,
       get: true,

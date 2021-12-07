@@ -2,8 +2,6 @@ export class Token {
   public value = '';
   public category: number;
   public categoryName: string;
-  public linha: number;
-  public column: number;
 
   constructor(value: string, categoryName: TableCategoryTokenType) {
     this.value = value;

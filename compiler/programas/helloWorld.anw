@@ -1,0 +1,4 @@
+start {
+  bool a = (bool) 'string';
+  put ('hello world');
+}
