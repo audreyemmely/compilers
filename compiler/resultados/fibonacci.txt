@@ -1,0 +1,131 @@
+start {
+              [1, 1] (7, RESERVED) {start}
+
+              [1, 7] (1, SIGNAL) {{}
+
+  function int fibonacci(int limite) {
+              [2, 3] (7, RESERVED) {function}
+
+              [2, 12] (7, RESERVED) {int}
+
+              [2, 16] (4, ID) {fibonacci}
+
+              [2, 25] (1, SIGNAL) {(}
+
+              [2, 26] (7, RESERVED) {int}
+
+              [2, 30] (4, ID) {limite}
+
+              [2, 36] (1, SIGNAL) {)}
+
+              [2, 38] (1, SIGNAL) {{}
+
+    int fib = 0;
+              [3, 5] (7, RESERVED) {int}
+
+              [3, 9] (4, ID) {fib}
+
+              [3, 13] (5, ASSIGNMENT) {=}
+
+              [3, 15] (2, NUMBER) {0}
+
+              [3, 16] (1, SIGNAL) {;}
+
+    int aux = 0;
+              [4, 5] (7, RESERVED) {int}
+
+              [4, 9] (4, ID) {aux}
+
+              [4, 13] (5, ASSIGNMENT) {=}
+
+              [4, 15] (2, NUMBER) {0}
+
+              [4, 16] (1, SIGNAL) {;}
+
+    int n;
+              [5, 5] (7, RESERVED) {int}
+
+              [5, 9] (4, ID) {n}
+
+              [5, 10] (1, SIGNAL) {;}
+
+
+    while (fib < limite) {
+              [7, 5] (7, RESERVED) {while}
+
+              [7, 11] (1, SIGNAL) {(}
+
+              [7, 12] (4, ID) {fib}
+
+              [7, 16] (6, RELATIONAL) {<}
+
+              [7, 18] (4, ID) {limite}
+
+              [7, 24] (1, SIGNAL) {)}
+
+              [7, 26] (1, SIGNAL) {{}
+
+      put (fib + '-');
+              [8, 7] (7, RESERVED) {put}
+
+              [8, 11] (1, SIGNAL) {(}
+
+              [8, 12] (4, ID) {fib}
+
+              [8, 16] (10, ARITHMETIC) {+}
+
+              [8, 18] (3, STRING) {'-'}
+
+              [8, 21] (1, SIGNAL) {)}
+
+              [8, 22] (1, SIGNAL) {;}
+
+      fib = fib + aux;
+              [9, 7] (4, ID) {fib}
+
+              [9, 11] (5, ASSIGNMENT) {=}
+
+              [9, 13] (4, ID) {fib}
+
+              [9, 17] (10, ARITHMETIC) {+}
+
+              [9, 19] (4, ID) {aux}
+
+              [9, 22] (1, SIGNAL) {;}
+
+      aux = n;
+              [10, 7] (4, ID) {aux}
+
+              [10, 11] (5, ASSIGNMENT) {=}
+
+              [10, 13] (4, ID) {n}
+
+              [10, 14] (1, SIGNAL) {;}
+
+      n = fib;
+              [11, 7] (4, ID) {n}
+
+              [11, 9] (5, ASSIGNMENT) {=}
+
+              [11, 11] (4, ID) {fib}
+
+              [11, 14] (1, SIGNAL) {;}
+
+    }
+              [12, 5] (1, SIGNAL) {}}
+
+
+    return n;
+              [14, 5] (7, RESERVED) {return}
+
+              [14, 12] (4, ID) {n}
+
+              [14, 13] (1, SIGNAL) {;}
+
+  }
+              [15, 3] (1, SIGNAL) {}}
+
+};
+              [16, 1] (1, SIGNAL) {}}
+
+              [16, 2] (1, SIGNAL) {;}
