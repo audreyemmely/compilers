@@ -1,0 +1,35 @@
+start {
+              [1, 1] (7, RESERVED) {start}
+
+              [1, 7] (1, SIGNAL) {{}
+
+  bool a = (bool) 'string';
+              [2, 3] (7, RESERVED) {bool}
+
+              [2, 8] (4, ID) {a}
+
+              [2, 10] (5, ASSIGNMENT) {=}
+
+              [2, 12] (1, SIGNAL) {(}
+
+              [2, 13] (7, RESERVED) {bool}
+
+              [2, 17] (1, SIGNAL) {)}
+
+              [2, 19] (3, STRING) {'string'}
+
+              [2, 27] (1, SIGNAL) {;}
+
+  put ('hello world');
+              [3, 3] (7, RESERVED) {put}
+
+              [3, 7] (1, SIGNAL) {(}
+
+              [3, 8] (3, STRING) {'hello world'}
+
+              [3, 21] (1, SIGNAL) {)}
+
+              [3, 22] (1, SIGNAL) {;}
+
+}
+              [4, 1] (1, SIGNAL) {}}
