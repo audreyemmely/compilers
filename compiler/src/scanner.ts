@@ -71,10 +71,10 @@ export class Scanner {
           } else if (rz.isLetterUpperCase(char)) {
             value += char;
             state = 16;
-          } else if (char === '*' || char === '/') {
+          } else if (char === '*' || char === '/' || char === '+') {
             value += char;
             state = 18;
-          } else if (char === '-' || char === '+') {
+          } else if (char === '-') {
             value += char;
             state = 19;
           } else {
