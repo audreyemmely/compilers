@@ -5,7 +5,7 @@ start {
     int n;
 
     while (fib < limite) {
-      put (fib + '-');
+      put (fib + '- ');
       fib = fib + aux;
       aux = n;
       n = fib;

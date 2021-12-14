@@ -1,3 +1,5 @@
+import { TokenCategory as TC } from './token';
+
 export class Reconizer {
   static isDigit(char: string): boolean {
     const charCode = char.charCodeAt(0);
@@ -37,32 +39,41 @@ export class Reconizer {
     return !!operators[char];
   }
 
-  static isSignal(char: string): boolean {
+  static isSignal(
+    char: string,
+  ): { n: number; name: string; s?: string } | undefined {
     const signals = {
-      '[': true,
-      ']': true,
-      '(': true,
-      ')': true,
-      '{': true,
-      '}': true,
-      ',': true,
-      '.': true,
-      ';': true,
+      '[': TC.BRACKET_SQUARE_LEFT,
+      ']': TC.BRACKET_SQUARE_RIGHT,
+      '(': TC.PARENTHESES_LEFT,
+      ')': TC.PARENTHESES_RIGHT,
+      '{': TC.BRACKET_CURLY_LEFT,
+      '}': TC.BRACKET_CURLY_RIGHT,
+      ',': TC.COMMA,
+      '.': TC.PERIOD,
+      ';': TC.SEMI_COLON,
     };
 
-    return !!signals[char];
+    return signals[char];
   }
 
-  static isArithmetic(char: string): boolean {
-    const arithmetics = {
-      '+': true,
-      '-': true,
-      '*': true,
-      '/': true,
-    };
+  // static isArithmetic(char: string): boolean {
+  //   const arithmetics = {
+  //     '+': true,
+  //     '-': true,
+  //     '*': true,
+  //     '/': true,
+  //   };
 
-    return !!arithmetics[char];
-  }
+  //   switch(char) {
+  //     case '+':
+  //       return TC.PLUS
+  //     case '-':
+  //       return TC.MINUS
+  //   }
+
+  //   return !!arithmetics[char];
+  // }
 
   static isBlanc(char: string): boolean {
     const blanc = {
@@ -75,32 +86,38 @@ export class Reconizer {
     return !!blanc[char];
   }
 
-  static isBoolean(value: string): boolean {
-    return value === 'true' || value == 'false';
+  static isBoolean(
+    value: string,
+  ): { n: number; name: string; s?: string } | undefined {
+    if (value === 'true') return TC.TRUE;
+    if (value === 'false') return TC.FALSE;
   }
 
-  static isReserved(value: string): boolean {
+  static isReserved(
+    value: string,
+  ): { n: number; name: string; s?: string } | undefined {
     const reserveds = {
-      int: true,
-      float: true,
-      char: true,
-      string: true,
-      bool: true,
-      undefined: true,
-      if: true,
-      else: true,
-      elseif: true,
-      loop: true,
-      while: true,
-      for: true,
-      do: true,
-      start: true,
-      get: true,
-      put: true,
-      function: true,
-      return: true,
-      size: true,
+      int: TC.R_INT,
+      float: TC.R_FLOAT,
+      char: TC.R_CHAR,
+      string: TC.R_STRING,
+      bool: TC.R_BOOL,
+      undefined: TC.R_UNDEFINED,
+      if: TC.R_IF,
+      else: TC.R_ELSE,
+      elseif: TC.R_ELSEIF,
+      loop: TC.R_LOOP,
+      while: TC.R_WHILE,
+      for: TC.R_FOR,
+      do: TC.R_DO,
+      start: TC.R_START,
+      get: TC.R_GET,
+      put: TC.R_PUT,
+      function: TC.R_FUNCTION,
+      return: TC.R_RETURN,
+      size: TC.R_SIZE,
     };
-    return !!reserveds[value];
+
+    return reserveds[value];
   }
 }

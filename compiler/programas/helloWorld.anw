@@ -1,4 +1,3 @@
 start {
-  bool a = (bool) 'string';
-  put ('hello world');
+  put ("hello world");
 }

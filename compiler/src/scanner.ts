@@ -1,4 +1,4 @@
-import { Token } from './token';
+import { Token, TokenCategory as TC } from './token';
 import { Reconizer as rz } from './reconizer';
 
 export class Scanner {
@@ -20,6 +20,7 @@ export class Scanner {
     18: true,
     20: true,
     21: true,
+    23: true,
   };
 
   private nextChar(): string {
@@ -56,9 +57,13 @@ export class Scanner {
             value += char;
             state = 5;
             // eslint-disable-next-line prettier/prettier
-          } else if (char === '\'') {
+          } else if (char === '\"') {
             value += char;
             state = 13;
+            // eslint-disable-next-line prettier/prettier
+          } else if (char === '\'') {
+            value += char;
+            state = 22;
           } else if (rz.isSignal(char)) {
             value += char;
             state = 15;
@@ -67,7 +72,7 @@ export class Scanner {
             state = 8;
           } else if (rz.isRelationalUnique(char)) {
             value += char;
-            state = 11;
+            state = 12;
           } else if (rz.isLetterUpperCase(char)) {
             value += char;
             state = 16;
@@ -79,32 +84,28 @@ export class Scanner {
             state = 19;
           } else {
             throw new Error(
-              `Caractere inválido: '${char}'\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column} | char ${char}`,
+              `Caractere inválido: '${char}'\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column} | char ${char}`,
             );
           }
           break;
+
         case 1:
-          if (
-            char &&
-            (rz.isLetterLowerCase(char) ||
-              rz.isLetterUpperCase(char) ||
-              rz.isDigit(char))
-          ) {
+          if (char && (rz.isLetter(char) || rz.isDigit(char))) {
             value += char;
             state = 1;
           } else state = 2;
           break;
+
         case 2:
           this.backColumn();
-          if (rz.isBoolean(value)) return new Token(value, 'BOOLEAN');
-          else if (rz.isReserved(value)) {
-            if (char !== ' ' && char !== '[' && char !== ';' && char !== ')') {
-              throw new Error(
-                `Palavra reservada usada incorretamente. '${value}'\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
-              );
-            }
-            return new Token(value, 'RESERVED');
-          } else return new Token(value, 'ID');
+          if (rz.isBoolean(value)) {
+            const tk = rz.isBoolean(value);
+            return new Token(value, tk.n, tk.name);
+          } else if (rz.isReserved(value)) {
+            const tk = rz.isReserved(value);
+            return new Token(value, tk.n, tk.name);
+          } else return new Token(value, TC.ID.n, TC.ID.name);
+
         case 3:
           if (
             (value.length === 1 && value === '-' && char === '.') ||
@@ -113,7 +114,7 @@ export class Scanner {
             (value[value.length - 1] === '.' && !rz.isDigit(char))
           ) {
             throw new Error(
-              `Estrutura incorreta de número.\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+              `Estrutura incorreta de número.\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
             );
           }
 
@@ -122,9 +123,13 @@ export class Scanner {
             state = 3;
           } else state = 4;
           break;
+
         case 4:
           this.backColumn();
-          return new Token(value, 'NUMBER');
+          if (value.includes('.')) {
+            return new Token(value, TC.FLOAT.n, TC.FLOAT.name);
+          } else return new Token(value, TC.INTEGER.n, TC.INTEGER.name);
+
         case 5:
           if (char !== '=') state = 6;
           else if (char === '=') {
@@ -132,64 +137,54 @@ export class Scanner {
             state = 7;
           }
           break;
+
         case 6:
           this.backColumn();
-          return new Token(value, 'ASSIGNMENT');
+          return new Token(value, TC.ASSIGNMENT.n, TC.ASSIGNMENT.name);
         case 7:
-          return new Token(value, 'RELATIONAL');
+          return new Token(value, TC.EQUAL.n, TC.EQUAL.name);
         case 8:
           if (char === '=') {
             value += char;
             state = 9;
-          } else if (
-            rz.isDigit(char) ||
-            rz.isLetter(char) ||
-            // eslint-disable-next-line prettier/prettier
-            char === '\'' ||
-            char === ' '
-          ) {
-            state = 10;
           } else {
-            throw new Error(
-              `Erro de expressão relacional.\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
-            );
+            state = 10;
           }
           break;
         case 9:
-          return new Token(value, 'RELATIONAL');
+          if (value === '<=')
+            return new Token(value, TC.LESS_EQUAL.n, TC.LESS_EQUAL.name);
+          if (value === '>=')
+            return new Token(value, TC.GREATER_EQUAL.n, TC.GREATER_EQUAL.name);
+          if (value === '!=')
+            return new Token(value, TC.NOT_EQUAL.n, TC.NOT_EQUAL.name);
+
         case 10:
           this.backColumn();
-          return new Token(value, 'RELATIONAL');
+          if (value === '<') return new Token(value, TC.LESS.n, TC.LESS.name);
+          if (value === '>')
+            return new Token(value, TC.GREATER.n, TC.GREATER.name);
+          if (value === '!') return new Token(value, TC.NOT.n, TC.NOT.name);
+
         case 11:
-          if (
-            rz.isDigit(char) ||
-            rz.isLetter(char) ||
-            // eslint-disable-next-line prettier/prettier
-            char === '\'' ||
-            char === ' '
-          ) {
-            state = 12;
-          } else {
-            throw new Error(
-              `Erro de expressão relacional.\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
-            );
-          }
           break;
+
         case 12:
-          this.backColumn();
-          return new Token(value, 'RELATIONAL');
+          if (value === '&') return new Token(value, TC.AND.n, TC.AND.name);
+          if (value === '|') return new Token(value, TC.OR.n, TC.OR.name);
+
         case 13:
           if (
             // eslint-disable-next-line prettier/prettier
-            char !== '\'' &&
+            char !== '\"' &&
             (char === '\n' || this.column >= this.line.length)
           ) {
             throw new Error(
-              `Caractere de fim de string não encontrado.\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+              `Caractere de fim de string não encontrado.\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
             );
           }
           // eslint-disable-next-line prettier/prettier
-          if (char === '\'') {
+          if (char === '\"') {
             value += char;
             state = 14;
           } else {
@@ -197,41 +192,79 @@ export class Scanner {
             state = 13;
           }
           break;
+
         case 14:
-          return new Token(value, 'STRING');
+          return new Token(value, TC.STRING.n, TC.STRING.name);
+
         case 15:
-          return new Token(value, 'SIGNAL');
+          const tk = rz.isSignal(value);
+          return new Token(value, tk.n, tk.name);
+
         case 16:
           if (rz.isLetterUpperCase(char) || char === '_') {
             value += char;
             state = 16;
           } else state = 17;
           break;
+
         case 17:
           this.backColumn();
-          return new Token(value, 'CONSTANT');
+          return new Token(value, TC.CONSTANT.n, TC.CONSTANT.name);
+
         case 18:
-          return new Token(value, 'ARITHMETIC');
+          if (value === '+') return new Token(value, TC.PLUS.n, TC.PLUS.name);
+          if (value === '/') return new Token(value, TC.SLASH.n, TC.SLASH.name);
+          if (value === '*')
+            return new Token(value, TC.ASTERISK.n, TC.ASTERISK.name);
+
         case 19:
-          if (char === ' ') {
-            state = 20;
-          } else if (rz.isDigit(char) || rz.isLetter(char)) {
+          if (rz.isDigit(char) || rz.isLetter(char)) {
             state = 21;
           } else {
+            state = 20;
+          }
+          break;
+
+        case 20:
+          this.backColumn();
+          return new Token(value, TC.MINUS.n, TC.MINUS.name);
+
+        case 21:
+          this.backColumn();
+          return new Token(value, TC.MINUS_UNARY.n, TC.MINUS_UNARY.name);
+
+        case 22:
+          if (
+            // eslint-disable-next-line prettier/prettier
+            (value.length === 1 && char === '\'') ||
+            char === '\n' ||
+            this.column >= this.line.length
+          ) {
             throw new Error(
-              `Expressão aritmética inválida. \n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+              `Fim de caractere não encontrado.\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+            );
+          }
+
+          // eslint-disable-next-line prettier/prettier
+          if (char === '\'') {
+            value += char;
+            state = 23;
+          } else if (value.length === 1) {
+            value += char;
+            state = 22;
+          } else {
+            throw new Error(
+              `Caractere com tamanho maior que 1. \n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
             );
           }
           break;
-        case 20:
-          this.backColumn();
-          return new Token(value, 'ARITHMETIC');
-        case 21:
-          this.backColumn();
-          return new Token(value, 'UNARY');
+
+        case 23:
+          return new Token(value, TC.CHAR.n, TC.CHAR.name);
+
         default:
           throw new Error(
-            `Valor não indentificado. '${value}'\n Erro sintático em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+            `Token não indentificado. '${value}'\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
           );
       }
 
