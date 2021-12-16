@@ -288,7 +288,6 @@ export class Scanner {
         return;
       }
       token.toLogFormated(this.lineCount, this.column - token.value.length + 1);
-      process.stdout.write('\n');
     }
   }
 
