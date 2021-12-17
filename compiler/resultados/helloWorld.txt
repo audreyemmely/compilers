@@ -1,35 +1,15 @@
 start {
-              [1, 1] (7, RESERVED) {start}
-
-              [1, 7] (1, SIGNAL) {{}
-
-  bool a = (bool) 'string';
-              [2, 3] (7, RESERVED) {bool}
-
-              [2, 8] (4, ID) {a}
-
-              [2, 10] (5, ASSIGNMENT) {=}
-
-              [2, 12] (1, SIGNAL) {(}
-
-              [2, 13] (7, RESERVED) {bool}
-
-              [2, 17] (1, SIGNAL) {)}
-
-              [2, 19] (3, STRING) {'string'}
-
-              [2, 27] (1, SIGNAL) {;}
-
-  put ('hello world');
-              [3, 3] (7, RESERVED) {put}
-
-              [3, 7] (1, SIGNAL) {(}
-
-              [3, 8] (3, STRING) {'hello world'}
-
-              [3, 21] (1, SIGNAL) {)}
-
-              [3, 22] (1, SIGNAL) {;}
-
+              [0001, 0001] (0046, R_START) {start}
+              [0001, 0007] (0018, BRACKET_CURLY_LEFT) {{}
+  put("hello", NEW_LINE, "world");
+              [0002, 0003] (0048, R_PUT) {put}
+              [0002, 0006] (0020, PARENTHESES_LEFT) {(}
+              [0002, 0007] (0003, STRING) {"hello"}
+              [0002, 0014] (0023, COMMA) {,}
+              [0002, 0016] (0032, CONSTANT) {NEW_LINE}
+              [0002, 0024] (0023, COMMA) {,}
+              [0002, 0026] (0003, STRING) {"world"}
+              [0002, 0033] (0021, PARENTHESES_RIGHT) {)}
+              [0002, 0034] (0024, SEMI_COLON) {;}
 }
-              [4, 1] (1, SIGNAL) {}}
+              [0003, 0001] (0019, BRACKET_CURLY_RIGHT) {}}
