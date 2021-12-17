@@ -83,8 +83,11 @@ export class Scanner {
             value += char;
             state = 19;
           } else {
-            throw new Error(
-              `Caractere inválido: '${char}'\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column} | char ${char}`,
+            return this.reportError(
+              'Caractere inválido.',
+              value,
+              this.lineCount,
+              this.column,
             );
           }
           break;
@@ -113,8 +116,11 @@ export class Scanner {
             rz.isLetter(char) ||
             (value[value.length - 1] === '.' && !rz.isDigit(char))
           ) {
-            throw new Error(
-              `Estrutura incorreta de número.\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+            return this.reportError(
+              'Estrutura incorreta de número.',
+              value,
+              this.lineCount,
+              this.column,
             );
           }
 
@@ -179,8 +185,11 @@ export class Scanner {
             char !== '\"' &&
             (char === '\n' || this.column >= this.line.length)
           ) {
-            throw new Error(
-              `Caractere de fim de string não encontrado.\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+            return this.reportError(
+              'String não finalizado corretamente.',
+              value,
+              this.lineCount,
+              this.column,
             );
           }
           // eslint-disable-next-line prettier/prettier
@@ -240,8 +249,11 @@ export class Scanner {
             char === '\n' ||
             this.column >= this.line.length
           ) {
-            throw new Error(
-              `Fim de caractere não encontrado.\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+            return this.reportError(
+              'Caractere não finalizado corretamente.',
+              value,
+              this.lineCount,
+              this.column,
             );
           }
 
@@ -253,8 +265,11 @@ export class Scanner {
             value += char;
             state = 22;
           } else {
-            throw new Error(
-              `Caractere com tamanho maior que 1. \n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+            return this.reportError(
+              'Caractere com tamanho maior que 1.',
+              value,
+              this.lineCount,
+              this.column,
             );
           }
           break;
@@ -263,8 +278,14 @@ export class Scanner {
           return new Token(value, TC.CHAR.n, TC.CHAR.name);
 
         default:
-          throw new Error(
-            `Token não indentificado. '${value}'\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+          // throw new Error(
+          //   `Token não indentificado.'${value}'\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
+          // );
+          return this.reportError(
+            'Token não identificado.',
+            value,
+            this.lineCount,
+            this.column,
           );
       }
 
@@ -293,5 +314,15 @@ export class Scanner {
 
   private backColumn(): void {
     this.column--;
+  }
+
+  private reportError(
+    message: string,
+    value: string,
+    l: number,
+    c: number,
+  ): Token {
+    this.backColumn();
+    return new Token(value, TC.ERROR.n, TC.ERROR.name);
   }
 }

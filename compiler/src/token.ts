@@ -101,4 +101,6 @@ export const TokenCategory = {
   R_FUNCTION: { n: 49, name: 'R_FUNCTION', s: 'function' },
   R_RETURN: { n: 50, name: 'R_RETURN', s: 'return' },
   R_SIZE: { n: 51, name: 'R_SIZE', s: 'size' },
+
+  ERROR: { n: -1, name: 'ERROR' },
 };
