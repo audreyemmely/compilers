@@ -2,4 +2,8 @@
 
 ### npm install (para instalar as dependences)
 
-### npm start
+### npm start ./programas/helloWorld.anw
+
+### npm start ./programas/fibonacci.anw
+
+### npm start ./programas/shellSort.anw
