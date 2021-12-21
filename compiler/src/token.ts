@@ -106,9 +106,9 @@ export const TokenCategory = {
   R_RETURN: { n: 51, name: 'R_RETURN', s: 'return' },
   R_SIZE: { n: 52, name: 'R_SIZE', s: 'size' },
 
-  ERROR_TOKEN: { n: 0, name: 'ERROR_TOKEN', msg: 'Token não identificado' },
-  ERROR_INVALID: { n: -1, name: 'ERROR_INVALID', msg: 'Caractere inválido' },
-  ERROR_NUMBER: { n: -2, name: 'ERROR_NUMBER', msg: 'Número inválido' },
-  ERROR_STRING: { n: -3, name: 'ERROR_STRING', msg: 'String inválido' },
-  ERROR_CHAR: { n: -3, name: 'ERROR_CHAR', msg: 'Char inválido' },
+  ERROR_TOKEN: { n: -1, name: 'ERROR_TOKEN', msg: 'Token não identificado' },
+  ERROR_INVALID: { n: -2, name: 'ERROR_INVALID', msg: 'Caractere inválido' },
+  ERROR_NUMBER: { n: -3, name: 'ERROR_NUMBER', msg: 'Número inválido' },
+  ERROR_STRING: { n: -4, name: 'ERROR_STRING', msg: 'String inválido' },
+  ERROR_CHAR: { n: -5, name: 'ERROR_CHAR', msg: 'Char inválido' },
 };
