@@ -1,7 +1,4 @@
-function to4d(n: number): string {
-  const s = '000' + n;
-  return s.substring(s.length - 4);
-}
+import { to4d } from './utils';
 
 export class Token {
   public value = '';
@@ -21,10 +18,16 @@ export class Token {
   }
 
   toLogFormated(linha: number, column: number): void {
-    console.info(
-      // eslint-disable-next-line prettier/prettier
-      `              [${to4d(linha)}, ${to4d(column)}] (${to4d(this.category)}, ${this.categoryName}) {${this.value}}`,
-    );
+    // eslint-disable-next-line prettier/prettier
+    let string1 = `              [${to4d(linha)}, ${to4d(column)}] (${to4d(this.category)}, ${this.categoryName})`
+
+    let espaces = 55 - string1.length;
+
+    while (espaces--) string1 = string1 + ' ';
+
+    const string2 = string1 + `{${this.value}}`;
+
+    console.info(string2);
   }
 
   static getCategoryToken(
@@ -73,34 +76,39 @@ export const TokenCategory = {
 
   //UNARY
   MINUS_UNARY: { n: 29, name: 'MINUS_UNARY', s: '-' },
+  PLUS_UNARY: { n: 30, name: 'PLUS_UNARY', s: '+' },
 
   //BOOLEAN
-  FALSE: { n: 30, name: 'FALSE', s: 'false' },
-  TRUE: { n: 31, name: 'FALSE', s: 'true' },
+  FALSE: { n: 31, name: 'FALSE', s: 'false' },
+  TRUE: { n: 32, name: 'FALSE', s: 'true' },
 
   //CONSTANT
-  CONSTANT: { n: 32, name: 'CONSTANT' },
+  CONSTANT: { n: 33, name: 'CONSTANT' },
 
   //RESERVED
-  R_INT: { n: 33, name: 'R_INT', s: 'int' },
-  R_FLOAT: { n: 34, name: 'R_FLOAT', s: 'float' },
-  R_CHAR: { n: 35, name: 'R_CHAR', s: 'char' },
-  R_STRING: { n: 36, name: 'R_STRING', s: 'string' },
-  R_BOOL: { n: 37, name: 'R_BOOL', s: 'bool' },
-  R_UNDEFINED: { n: 38, name: 'R_UNDEFINED', s: 'undefined' },
-  R_IF: { n: 39, name: 'R_IF', s: 'if' },
-  R_ELSE: { n: 40, name: 'R_ELSE', s: 'else' },
-  R_ELSEIF: { n: 41, name: 'R_ELSEIF', s: 'elseif' },
-  R_LOOP: { n: 42, name: 'R_LOOP', s: 'loop' },
-  R_WHILE: { n: 43, name: 'R_WHILE', s: 'while' },
-  R_FOR: { n: 44, name: 'R_FOR', s: 'for' },
-  R_DO: { n: 45, name: 'R_DO', s: 'do' },
-  R_START: { n: 46, name: 'R_START', s: 'start' },
-  R_GET: { n: 47, name: 'R_GET', s: 'get' },
-  R_PUT: { n: 48, name: 'R_PUT', s: 'put' },
-  R_FUNCTION: { n: 49, name: 'R_FUNCTION', s: 'function' },
-  R_RETURN: { n: 50, name: 'R_RETURN', s: 'return' },
-  R_SIZE: { n: 51, name: 'R_SIZE', s: 'size' },
+  R_INT: { n: 34, name: 'R_INT', s: 'int' },
+  R_FLOAT: { n: 35, name: 'R_FLOAT', s: 'float' },
+  R_CHAR: { n: 36, name: 'R_CHAR', s: 'char' },
+  R_STRING: { n: 37, name: 'R_STRING', s: 'string' },
+  R_BOOL: { n: 38, name: 'R_BOOL', s: 'bool' },
+  R_UNDEFINED: { n: 39, name: 'R_UNDEFINED', s: 'undefined' },
+  R_IF: { n: 40, name: 'R_IF', s: 'if' },
+  R_ELSE: { n: 41, name: 'R_ELSE', s: 'else' },
+  R_ELSEIF: { n: 42, name: 'R_ELSEIF', s: 'elseif' },
+  R_LOOP: { n: 43, name: 'R_LOOP', s: 'loop' },
+  R_WHILE: { n: 44, name: 'R_WHILE', s: 'while' },
+  R_FOR: { n: 45, name: 'R_FOR', s: 'for' },
+  R_DO: { n: 46, name: 'R_DO', s: 'do' },
+  R_START: { n: 47, name: 'R_START', s: 'start' },
+  R_GET: { n: 48, name: 'R_GET', s: 'get' },
+  R_PUT: { n: 49, name: 'R_PUT', s: 'put' },
+  R_FUNCTION: { n: 50, name: 'R_FUNCTION', s: 'function' },
+  R_RETURN: { n: 51, name: 'R_RETURN', s: 'return' },
+  R_SIZE: { n: 52, name: 'R_SIZE', s: 'size' },
 
-  ERROR: { n: -1, name: 'ERROR' },
+  ERROR_TOKEN: { n: 0, name: 'ERROR_TOKEN', msg: 'Token não identificado' },
+  ERROR_INVALID: { n: -1, name: 'ERROR_INVALID', msg: 'Caractere inválido' },
+  ERROR_NUMBER: { n: -2, name: 'ERROR_NUMBER', msg: 'Número inválido' },
+  ERROR_STRING: { n: -3, name: 'ERROR_STRING', msg: 'String inválido' },
+  ERROR_CHAR: { n: -3, name: 'ERROR_CHAR', msg: 'Char inválido' },
 };

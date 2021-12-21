@@ -1,19 +1,10 @@
 /* eslint-disable no-console */
-import { FileHandler } from './fileHandler';
-import { Scanner } from './scanner';
+import { AnalisadorLexico } from './analisadorLexico';
 
-const scanner = new Scanner();
+const lexico = new AnalisadorLexico(process.argv[2]);
 
-const file = new FileHandler(
-  (line, lineCount) => scanner.processLine(line, lineCount),
-  process.argv[2],
-);
+while (true) {
+  const token = lexico.nextToken();
 
-// path = './programas/helloWorld.anw';
-// path = './programas/shellSort.anw';
-// path = './programas/fibonacci.anw';
-
-file.readLineByLine();
-
-// console.info('process');
-// console.info(process.argv);
+  if (!token) break;
+}

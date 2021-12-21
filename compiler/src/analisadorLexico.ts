@@ -1,10 +1,13 @@
 import { Token, TokenCategory as TC } from './token';
 import { Reconizer as rz } from './reconizer';
+import { FileHandler } from './fileHandler';
+import { to4d } from './utils';
 
-export class Scanner {
+export class AnalisadorLexico {
   public column = 0;
   public lineCount = 0;
   public line = '';
+  private file: FileHandler;
 
   private readonly finalStates = {
     2: true,
@@ -23,6 +26,14 @@ export class Scanner {
     23: true,
   };
 
+  constructor(path: string) {
+    this.file = new FileHandler(path);
+    const lineConfig = this.file.getLine();
+    this.line = lineConfig.line;
+    this.lineCount = lineConfig.lineCount;
+    this.column = 0;
+  }
+
   private nextChar(): string {
     if (this.column >= this.line.length) {
       return null;
@@ -33,7 +44,7 @@ export class Scanner {
     return char;
   }
 
-  private nextToken(): Token {
+  private nextTokenPrivate(): Token {
     let char = this.nextChar();
     if (!char) return null;
 
@@ -76,15 +87,15 @@ export class Scanner {
           } else if (rz.isLetterUpperCase(char)) {
             value += char;
             state = 16;
-          } else if (char === '*' || char === '/' || char === '+') {
+          } else if (char === '*' || char === '/') {
             value += char;
             state = 18;
-          } else if (char === '-') {
+          } else if (char === '-' || char === '+') {
             value += char;
             state = 19;
           } else {
             return this.reportError(
-              'Caractere inválido.',
+              TC.ERROR_INVALID.name,
               value,
               this.lineCount,
               this.column,
@@ -117,7 +128,7 @@ export class Scanner {
             (value[value.length - 1] === '.' && !rz.isDigit(char))
           ) {
             return this.reportError(
-              'Estrutura incorreta de número.',
+              TC.ERROR_NUMBER.name,
               value,
               this.lineCount,
               this.column,
@@ -186,7 +197,7 @@ export class Scanner {
             (char === '\n' || this.column >= this.line.length)
           ) {
             return this.reportError(
-              'String não finalizado corretamente.',
+              TC.ERROR_STRING.name,
               value,
               this.lineCount,
               this.column,
@@ -236,11 +247,15 @@ export class Scanner {
 
         case 20:
           this.backColumn();
-          return new Token(value, TC.MINUS.n, TC.MINUS.name);
+          if (value === '-') return new Token(value, TC.MINUS.n, TC.MINUS.name);
+          if (value === '+') return new Token(value, TC.PLUS.n, TC.PLUS.name);
 
         case 21:
           this.backColumn();
-          return new Token(value, TC.MINUS_UNARY.n, TC.MINUS_UNARY.name);
+          if (value === '-')
+            return new Token(value, TC.MINUS_UNARY.n, TC.MINUS_UNARY.name);
+          if (value === '+')
+            return new Token(value, TC.PLUS_UNARY.n, TC.PLUS_UNARY.name);
 
         case 22:
           if (
@@ -250,7 +265,7 @@ export class Scanner {
             this.column >= this.line.length
           ) {
             return this.reportError(
-              'Caractere não finalizado corretamente.',
+              TC.ERROR_CHAR.name,
               value,
               this.lineCount,
               this.column,
@@ -266,7 +281,7 @@ export class Scanner {
             state = 22;
           } else {
             return this.reportError(
-              'Caractere com tamanho maior que 1.',
+              TC.ERROR_CHAR.name,
               value,
               this.lineCount,
               this.column,
@@ -278,11 +293,8 @@ export class Scanner {
           return new Token(value, TC.CHAR.n, TC.CHAR.name);
 
         default:
-          // throw new Error(
-          //   `Token não indentificado.'${value}'\n Erro léxico em state:${state} | linha:${this.lineCount} | coluna:${this.column}`,
-          // );
           return this.reportError(
-            'Token não identificado.',
+            TC.ERROR_TOKEN.name,
             value,
             this.lineCount,
             this.column,
@@ -297,19 +309,37 @@ export class Scanner {
     }
   }
 
-  public processLine(line: string, lineCount: number): void {
-    this.lineCount = lineCount;
-    this.line = line;
-    this.column = 0;
-
-    console.info(line);
-    while (true) {
-      const token = this.nextToken();
-      if (!token) {
-        return;
-      }
-      token.toLogFormated(this.lineCount, this.column - token.value.length + 1);
+  public nextToken(): Token {
+    if (this.line == '') {
+      return null;
     }
+
+    if (this.column === 0) {
+      this.printLine();
+    }
+
+    let token = this.nextTokenPrivate();
+
+    if (!token) {
+      if (!this.realoadLine()) return null;
+      this.printLine();
+      token = this.nextTokenPrivate();
+    }
+
+    token.toLogFormated(this.lineCount, this.column - token.value.length + 1);
+
+    return token;
+  }
+
+  private realoadLine(): boolean {
+    const lineConfig = this.file.getLine();
+
+    if (!lineConfig.line) return false;
+
+    this.line = lineConfig.line;
+    this.lineCount = lineConfig.lineCount;
+    this.column = 0;
+    return true;
   }
 
   private backColumn(): void {
@@ -317,12 +347,16 @@ export class Scanner {
   }
 
   private reportError(
-    message: string,
+    tokenName: string,
     value: string,
     l: number,
     c: number,
   ): Token {
     this.backColumn();
-    return new Token(value, TC.ERROR.n, TC.ERROR.name);
+    return new Token(value, TC[tokenName].n, TC[tokenName].name);
+  }
+
+  private printLine(): void {
+    console.info(`${to4d(this.lineCount)}  ${this.line.trimLeft()}`);
   }
 }
