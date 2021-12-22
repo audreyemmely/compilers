@@ -317,6 +317,7 @@ export class AnalisadorLexico {
       while (true) {
         const validate = this.realoadLine();
         if (!validate) return null;
+        if (this.line !== '') break;
       }
     }
 
