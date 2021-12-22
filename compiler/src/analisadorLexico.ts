@@ -364,6 +364,6 @@ export class AnalisadorLexico {
   }
 
   private printLine(): void {
-    console.info(`${to4d(this.lineCount)}  ${this.line.trimLeft()}`);
+    console.info(`${to4d(this.lineCount, true)}  ${this.line}`);
   }
 }

@@ -1,7 +1,7 @@
-0001  start {
+   1  start {
               [0001, 0001] (0047, R_START)             {start}
               [0001, 0007] (0018, BRACKET_CURLY_LEFT)  {{}
-0002  function int[] shellSort(int[] array) {
+   2    function int[] shellSort(int[] array) {
               [0002, 0003] (0050, R_FUNCTION)          {function}
               [0002, 0012] (0034, R_INT)               {int}
               [0002, 0015] (0016, BRACKET_SQUARE_LEFT) {[}
@@ -14,7 +14,7 @@
               [0002, 0034] (0005, ID)                  {array}
               [0002, 0039] (0021, PARENTHESES_RIGHT)   {)}
               [0002, 0041] (0018, BRACKET_CURLY_LEFT)  {{}
-0003  int n = array.size;
+   3      int n = array.size;
               [0003, 0005] (0034, R_INT)               {int}
               [0003, 0009] (0005, ID)                  {n}
               [0003, 0011] (0006, ASSIGNMENT)          {=}
@@ -22,7 +22,7 @@
               [0003, 0018] (0022, PERIOD)              {.}
               [0003, 0019] (0052, R_SIZE)              {size}
               [0003, 0023] (0024, SEMI_COLON)          {;}
-0004  int gap = (int) array.size / 2;
+   4      int gap = (int) array.size / 2;
               [0004, 0005] (0034, R_INT)               {int}
               [0004, 0009] (0005, ID)                  {gap}
               [0004, 0013] (0006, ASSIGNMENT)          {=}
@@ -35,7 +35,7 @@
               [0004, 0032] (0028, SLASH)               {/}
               [0004, 0034] (0001, INTEGER)             {2}
               [0004, 0035] (0024, SEMI_COLON)          {;}
-0006  for(; gap > 0; gap = (int) gap/2) {
+   6      for(; gap > 0; gap = (int) gap/2) {
               [0006, 0005] (0045, R_FOR)               {for}
               [0006, 0008] (0020, PARENTHESES_LEFT)    {(}
               [0006, 0009] (0024, SEMI_COLON)          {;}
@@ -53,7 +53,7 @@
               [0006, 0036] (0001, INTEGER)             {2}
               [0006, 0037] (0021, PARENTHESES_RIGHT)   {)}
               [0006, 0039] (0018, BRACKET_CURLY_LEFT)  {{}
-0007  loop (int i; gap; n;) {
+   7        loop (int i; gap; n;) {
               [0007, 0007] (0043, R_LOOP)              {loop}
               [0007, 0012] (0020, PARENTHESES_LEFT)    {(}
               [0007, 0013] (0034, R_INT)               {int}
@@ -65,7 +65,7 @@
               [0007, 0026] (0024, SEMI_COLON)          {;}
               [0007, 0027] (0021, PARENTHESES_RIGHT)   {)}
               [0007, 0029] (0018, BRACKET_CURLY_LEFT)  {{}
-0008  int temp = array[i];
+   8          int temp = array[i];
               [0008, 0009] (0034, R_INT)               {int}
               [0008, 0013] (0005, ID)                  {temp}
               [0008, 0018] (0006, ASSIGNMENT)          {=}
@@ -74,12 +74,12 @@
               [0008, 0026] (0005, ID)                  {i}
               [0008, 0027] (0017, BRACKET_SQUARE_RIGHT){]}
               [0008, 0028] (0024, SEMI_COLON)          {;}
-0009
-0010  int j;
+   9
+  10          int j;
               [0010, 0009] (0034, R_INT)               {int}
               [0010, 0013] (0005, ID)                  {j}
               [0010, 0014] (0024, SEMI_COLON)          {;}
-0011  for (j = i; j >= gap & array[j - gap] > temp; j = j - gap) {
+  11          for (j = i; j >= gap & array[j - gap] > temp; j = j - gap) {
               [0011, 0009] (0045, R_FOR)               {for}
               [0011, 0013] (0020, PARENTHESES_LEFT)    {(}
               [0011, 0014] (0005, ID)                  {j}
@@ -106,7 +106,7 @@
               [0011, 0063] (0005, ID)                  {gap}
               [0011, 0066] (0021, PARENTHESES_RIGHT)   {)}
               [0011, 0068] (0018, BRACKET_CURLY_LEFT)  {{}
-0012  array[j] = array[j - gap];
+  12            array[j] = array[j - gap];
               [0012, 0011] (0005, ID)                  {array}
               [0012, 0016] (0016, BRACKET_SQUARE_LEFT) {[}
               [0012, 0017] (0005, ID)                  {j}
@@ -119,9 +119,9 @@
               [0012, 0032] (0005, ID)                  {gap}
               [0012, 0035] (0017, BRACKET_SQUARE_RIGHT){]}
               [0012, 0036] (0024, SEMI_COLON)          {;}
-0013  }
+  13          }
               [0013, 0009] (0019, BRACKET_CURLY_RIGHT) {}}
-0015  array[j] = temp;
+  15          array[j] = temp;
               [0015, 0009] (0005, ID)                  {array}
               [0015, 0014] (0016, BRACKET_SQUARE_LEFT) {[}
               [0015, 0015] (0005, ID)                  {j}
@@ -129,16 +129,16 @@
               [0015, 0018] (0006, ASSIGNMENT)          {=}
               [0015, 0020] (0005, ID)                  {temp}
               [0015, 0024] (0024, SEMI_COLON)          {;}
-0017  }
+  17        }
               [0017, 0007] (0019, BRACKET_CURLY_RIGHT) {}}
-0018  }
+  18      }
               [0018, 0005] (0019, BRACKET_CURLY_RIGHT) {}}
-0020  return array;
+  20      return array;
               [0020, 0005] (0051, R_RETURN)            {return}
               [0020, 0012] (0005, ID)                  {array}
               [0020, 0017] (0024, SEMI_COLON)          {;}
-0021  }
+  21    }
               [0021, 0003] (0019, BRACKET_CURLY_RIGHT) {}}
-0022  };
+  22  };
               [0022, 0001] (0019, BRACKET_CURLY_RIGHT) {}}
               [0022, 0002] (0024, SEMI_COLON)          {;}
