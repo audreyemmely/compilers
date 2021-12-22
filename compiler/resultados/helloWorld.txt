@@ -1,15 +1,14 @@
-start {
-              [0001, 0001] (0046, R_START) {start}
-              [0001, 0007] (0018, BRACKET_CURLY_LEFT) {{}
-  put("hello", NEW_LINE, "world");
-              [0002, 0003] (0048, R_PUT) {put}
-              [0002, 0006] (0020, PARENTHESES_LEFT) {(}
-              [0002, 0007] (0003, STRING) {"hello"}
-              [0002, 0014] (0023, COMMA) {,}
-              [0002, 0016] (0032, CONSTANT) {NEW_LINE}
-              [0002, 0024] (0023, COMMA) {,}
-              [0002, 0026] (0003, STRING) {"world"}
-              [0002, 0033] (0021, PARENTHESES_RIGHT) {)}
-              [0002, 0034] (0024, SEMI_COLON) {;}
-}
+0001  start {
+              [0001, 0001] (0047, R_START)             {start}
+              [0001, 0007] (0018, BRACKET_CURLY_LEFT)  {{}
+0002  put(hello", NEW_LINE, "world");
+              [0002, 0003] (0049, R_PUT)               {put}
+              [0002, 0006] (0020, PARENTHESES_LEFT)    {(}
+              [0002, 0007] (0005, ID)                  {hello}
+              [0002, 0012] (0003, STRING)              {", NEW_LINE, "}
+              [0002, 0026] (0005, ID)                  {world}
+              [0002, 0031] (00-4, ERROR_STRING)        {")}
+              [0002, 0033] (0024, SEMI_COLON)          {;}
+0003  };
               [0003, 0001] (0019, BRACKET_CURLY_RIGHT) {}}
+              [0003, 0002] (0024, SEMI_COLON)          {;}

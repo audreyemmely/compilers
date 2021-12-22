@@ -32,6 +32,9 @@ export class AnalisadorLexico {
     this.line = lineConfig.line;
     this.lineCount = lineConfig.lineCount;
     this.column = 0;
+
+    this.printLine(); // PRIMEIRA LINHA PARA PRINTAR
+    // RETIRAR APÓS APRESENTAÇÃO
   }
 
   private nextChar(): string {
@@ -311,19 +314,23 @@ export class AnalisadorLexico {
 
   public nextToken(): Token {
     if (this.line == '') {
-      return null;
-    }
-
-    if (this.column === 0) {
-      this.printLine();
+      while (true) {
+        const validate = this.realoadLine();
+        if (!validate) return null;
+      }
     }
 
     let token = this.nextTokenPrivate();
 
     if (!token) {
-      if (!this.realoadLine()) return null;
-      this.printLine();
-      token = this.nextTokenPrivate();
+      while (true) {
+        const validate = this.realoadLine();
+        if (validate === false) return null;
+        this.line !== '' && this.printLine();
+
+        token = this.nextTokenPrivate();
+        if (token) break;
+      }
     }
 
     token.toLogFormated(this.lineCount, this.column - token.value.length + 1);
@@ -333,8 +340,7 @@ export class AnalisadorLexico {
 
   private realoadLine(): boolean {
     const lineConfig = this.file.getLine();
-
-    if (!lineConfig.line) return false;
+    if ((lineConfig.line as any) === false) return false;
 
     this.line = lineConfig.line;
     this.lineCount = lineConfig.lineCount;

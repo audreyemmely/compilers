@@ -1,74 +1,72 @@
-start {
-              [0001, 0001] (0046, R_START) {start}
-              [0001, 0007] (0018, BRACKET_CURLY_LEFT) {{}
-  function int fibonacci(int limite) {
-              [0002, 0003] (0049, R_FUNCTION) {function}
-              [0002, 0012] (0033, R_INT) {int}
-              [0002, 0016] (0005, ID) {fibonacci}
-              [0002, 0025] (0020, PARENTHESES_LEFT) {(}
-              [0002, 0026] (0033, R_INT) {int}
-              [0002, 0030] (0005, ID) {limite}
-              [0002, 0036] (0021, PARENTHESES_RIGHT) {)}
-              [0002, 0038] (0018, BRACKET_CURLY_LEFT) {{}
-    int fib = 0;
-              [0003, 0005] (0033, R_INT) {int}
-              [0003, 0009] (0005, ID) {fib}
-              [0003, 0013] (0006, ASSIGNMENT) {=}
-              [0003, 0015] (0001, INTEGER) {0}
-              [0003, 0016] (0024, SEMI_COLON) {;}
-    int aux = 0;
-              [0004, 0005] (0033, R_INT) {int}
-              [0004, 0009] (0005, ID) {aux}
-              [0004, 0013] (0006, ASSIGNMENT) {=}
-              [0004, 0015] (0001, INTEGER) {0}
-              [0004, 0016] (0024, SEMI_COLON) {;}
-    int n;
-              [0005, 0005] (0033, R_INT) {int}
-              [0005, 0009] (0005, ID) {n}
-              [0005, 0010] (0024, SEMI_COLON) {;}
-
-    while (fib < limite) {
-              [0007, 0005] (0043, R_WHILE) {while}
-              [0007, 0011] (0020, PARENTHESES_LEFT) {(}
-              [0007, 0012] (0005, ID) {fib}
-              [0007, 0016] (0011, LESS) {<}
-              [0007, 0018] (0005, ID) {limite}
-              [0007, 0024] (0021, PARENTHESES_RIGHT) {)}
-              [0007, 0026] (0018, BRACKET_CURLY_LEFT) {{}
-      put (fib + '-');
-              [0008, 0007] (0048, R_PUT) {put}
-              [0008, 0011] (0020, PARENTHESES_LEFT) {(}
-              [0008, 0012] (0005, ID) {fib}
-              [0008, 0016] (0025, PLUS) {+}
-              [0008, 0018] (0004, CHAR) {'-'}
-              [0008, 0021] (0021, PARENTHESES_RIGHT) {)}
-              [0008, 0022] (0024, SEMI_COLON) {;}
-      fib = fib + aux;
-              [0009, 0007] (0005, ID) {fib}
-              [0009, 0011] (0006, ASSIGNMENT) {=}
-              [0009, 0013] (0005, ID) {fib}
-              [0009, 0017] (0025, PLUS) {+}
-              [0009, 0019] (0005, ID) {aux}
-              [0009, 0022] (0024, SEMI_COLON) {;}
-      aux = n;
-              [0010, 0007] (0005, ID) {aux}
-              [0010, 0011] (0006, ASSIGNMENT) {=}
-              [0010, 0013] (0005, ID) {n}
-              [0010, 0014] (0024, SEMI_COLON) {;}
-      n = fib;
-              [0011, 0007] (0005, ID) {n}
-              [0011, 0009] (0006, ASSIGNMENT) {=}
-              [0011, 0011] (0005, ID) {fib}
-              [0011, 0014] (0024, SEMI_COLON) {;}
-    }
+0001  start {
+              [0001, 0001] (0047, R_START)             {start}
+              [0001, 0007] (0018, BRACKET_CURLY_LEFT)  {{}
+0002  function int fibonacci(int limite) {
+              [0002, 0003] (0050, R_FUNCTION)          {function}
+              [0002, 0012] (0034, R_INT)               {int}
+              [0002, 0016] (0005, ID)                  {fibonacci}
+              [0002, 0025] (0020, PARENTHESES_LEFT)    {(}
+              [0002, 0026] (0034, R_INT)               {int}
+              [0002, 0030] (0005, ID)                  {limite}
+              [0002, 0036] (0021, PARENTHESES_RIGHT)   {)}
+              [0002, 0038] (0018, BRACKET_CURLY_LEFT)  {{}
+0003  int fib = 0;
+              [0003, 0005] (0034, R_INT)               {int}
+              [0003, 0009] (0005, ID)                  {fib}
+              [0003, 0013] (0006, ASSIGNMENT)          {=}
+              [0003, 0015] (0001, INTEGER)             {0}
+              [0003, 0016] (0024, SEMI_COLON)          {;}
+0004  int aux = 0;
+              [0004, 0005] (0034, R_INT)               {int}
+              [0004, 0009] (0005, ID)                  {aux}
+              [0004, 0013] (0006, ASSIGNMENT)          {=}
+              [0004, 0015] (0001, INTEGER)             {0}
+              [0004, 0016] (0024, SEMI_COLON)          {;}
+0005  int n;
+              [0005, 0005] (0034, R_INT)               {int}
+              [0005, 0009] (0005, ID)                  {n}
+              [0005, 0010] (0024, SEMI_COLON)          {;}
+0007  while(fib < limite) {
+              [0007, 0005] (0044, R_WHILE)             {while}
+              [0007, 0010] (0020, PARENTHESES_LEFT)    {(}
+              [0007, 0011] (0005, ID)                  {fib}
+              [0007, 0015] (0011, LESS)                {<}
+              [0007, 0017] (0005, ID)                  {limite}
+              [0007, 0023] (0021, PARENTHESES_RIGHT)   {)}
+              [0007, 0025] (0018, BRACKET_CURLY_LEFT)  {{}
+0008  put (fib + '-');
+              [0008, 0007] (0049, R_PUT)               {put}
+              [0008, 0011] (0020, PARENTHESES_LEFT)    {(}
+              [0008, 0012] (0005, ID)                  {fib}
+              [0008, 0016] (0025, PLUS)                {+}
+              [0008, 0018] (0004, CHAR)                {'-'}
+              [0008, 0021] (0021, PARENTHESES_RIGHT)   {)}
+              [0008, 0022] (0024, SEMI_COLON)          {;}
+0009  fib = fib + aux;
+              [0009, 0007] (0005, ID)                  {fib}
+              [0009, 0011] (0006, ASSIGNMENT)          {=}
+              [0009, 0013] (0005, ID)                  {fib}
+              [0009, 0017] (0025, PLUS)                {+}
+              [0009, 0019] (0005, ID)                  {aux}
+              [0009, 0022] (0024, SEMI_COLON)          {;}
+0010  aux = n;
+              [0010, 0007] (0005, ID)                  {aux}
+              [0010, 0011] (0006, ASSIGNMENT)          {=}
+              [0010, 0013] (0005, ID)                  {n}
+              [0010, 0014] (0024, SEMI_COLON)          {;}
+0011  n = fib;
+              [0011, 0007] (0005, ID)                  {n}
+              [0011, 0009] (0006, ASSIGNMENT)          {=}
+              [0011, 0011] (0005, ID)                  {fib}
+              [0011, 0014] (0024, SEMI_COLON)          {;}
+0012  }
               [0012, 0005] (0019, BRACKET_CURLY_RIGHT) {}}
-
-    return n;
-              [0014, 0005] (0050, R_RETURN) {return}
-              [0014, 0012] (0005, ID) {n}
-              [0014, 0013] (0024, SEMI_COLON) {;}
-  }
+0014  return n;
+              [0014, 0005] (0051, R_RETURN)            {return}
+              [0014, 0012] (0005, ID)                  {n}
+              [0014, 0013] (0024, SEMI_COLON)          {;}
+0015  }
               [0015, 0003] (0019, BRACKET_CURLY_RIGHT) {}}
-};
+0016  };
               [0016, 0001] (0019, BRACKET_CURLY_RIGHT) {}}
-              [0016, 0002] (0024, SEMI_COLON) {;}
+              [0016, 0002] (0024, SEMI_COLON)          {;}

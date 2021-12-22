@@ -1,4 +1,3 @@
 start {
   put(hello", NEW_LINE, "world");
-  int a1a1 = 1 + -1 - +1;
-}
+};
