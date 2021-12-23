@@ -19,15 +19,14 @@ export class Token {
 
   toLogFormated(linha: number, column: number): void {
     // eslint-disable-next-line prettier/prettier
-    let string1 = `              [${to4d(linha)}, ${to4d(column)}] (${to4d(this.category)}, ${this.categoryName})`
+    let string1 = `              [${to4d(linha)}, ${to4d(column)}] (${to4d(this.category)},`
+    const string2 = `${this.categoryName}) `;
 
-    let espaces = 55 - string1.length;
+    let espaces = 57 - string1.length - string2.length;
 
     while (espaces--) string1 = string1 + ' ';
 
-    const string2 = string1 + `{${this.value}}`;
-
-    console.info(string2);
+    console.info(string1 + string2 + `{${this.value}}`);
   }
 
   static getCategoryToken(
