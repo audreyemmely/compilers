@@ -11,7 +11,7 @@ export class FileHandler {
    * @param path caminho do arquivo
    * @default path file.anw
    */
-  constructor(path = 'file.anw') {
+  constructor(path = 'test.anw') {
     this.path = path;
 
     this.reader = new nReadlines(path);

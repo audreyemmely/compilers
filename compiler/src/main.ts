@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 import { AnalisadorLexico } from './analisadorLexico';
+import { AnalisadorSintatico } from './analisadorSintatico';
 
 const lexico = new AnalisadorLexico(process.argv[2]);
 
-while (true) {
-  const token = lexico.nextToken();
+const AS = new AnalisadorSintatico(lexico);
 
-  if (!token) break;
-}
+AS.S();

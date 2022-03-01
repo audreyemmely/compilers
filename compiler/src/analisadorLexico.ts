@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import { Token, TokenCategory as TC } from './token';
 import { Reconizer as rz } from './reconizer';
 import { FileHandler } from './fileHandler';
@@ -70,12 +71,10 @@ export class AnalisadorLexico {
           } else if (char === '=') {
             value += char;
             state = 5;
-            // eslint-disable-next-line prettier/prettier
-          } else if (char === '\"') {
+          } else if (char === '"') {
             value += char;
             state = 13;
-            // eslint-disable-next-line prettier/prettier
-          } else if (char === '\'') {
+          } else if (char === "'") {
             value += char;
             state = 22;
           } else if (rz.isSignal(char)) {
@@ -196,7 +195,7 @@ export class AnalisadorLexico {
         case 13:
           if (
             // eslint-disable-next-line prettier/prettier
-            char !== '\"' &&
+            char !== '"' &&
             (char === '\n' || this.column >= this.line.length)
           ) {
             return this.reportError(
@@ -207,7 +206,7 @@ export class AnalisadorLexico {
             );
           }
           // eslint-disable-next-line prettier/prettier
-          if (char === '\"') {
+          if (char === '"') {
             value += char;
             state = 14;
           } else {
@@ -263,7 +262,7 @@ export class AnalisadorLexico {
         case 22:
           if (
             // eslint-disable-next-line prettier/prettier
-            (value.length === 1 && char === '\'') ||
+            (value.length === 1 && char === "'") ||
             char === '\n' ||
             this.column >= this.line.length
           ) {
@@ -276,7 +275,7 @@ export class AnalisadorLexico {
           }
 
           // eslint-disable-next-line prettier/prettier
-          if (char === '\'') {
+          if (char === "'") {
             value += char;
             state = 23;
           } else if (value.length === 1) {
@@ -334,7 +333,7 @@ export class AnalisadorLexico {
       }
     }
 
-    token.toLogFormated(this.lineCount, this.column - token.value.length + 1);
+    // token.toLogFormated(this.lineCount, this.column - token.value.length + 1);
 
     return token;
   }

@@ -120,4 +120,43 @@ export class Reconizer {
 
     return reserveds[value];
   }
+
+  static isTypeCategory(value: number): boolean {
+    return [
+      TC.R_BOOL.n,
+      TC.R_CHAR.n,
+      TC.R_FLOAT.n,
+      TC.R_INT.n,
+      TC.R_STRING.n,
+    ].includes(value);
+  }
+
+  static isTypeFuncaoCategory(value: number): boolean {
+    return value === TC.R_UNDEFINED.n || this.isTypeCategory(value);
+  }
+
+  static isFirstDeInstrucao(value: number): boolean {
+    return [
+      TC.R_IF.n,
+      TC.R_WHILE.n,
+      TC.R_DO.n,
+      TC.R_FOR.n,
+      TC.R_LOOP.n,
+      TC.R_RETURN.n,
+      TC.ID.n,
+      TC.R_PUT.n,
+      TC.R_GET.n,
+    ].includes(value);
+  }
+
+  static isLogicOperator(value: number): boolean {
+    return [
+      TC.LESS.n,
+      TC.LESS_EQUAL.n,
+      TC.GREATER.n,
+      TC.GREATER_EQUAL.n,
+      TC.NOT_EQUAL.n,
+      TC.EQUAL.n,
+    ].includes(value);
+  }
 }

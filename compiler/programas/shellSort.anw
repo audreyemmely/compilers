@@ -7,8 +7,8 @@ start {
       loop (int i; gap; n;) {
         int temp = array[i];
         
-        int j;
-        for (j = i; j >= gap & array[j - gap] > temp; j = j - gap) {
+        int j = i;
+        for (; j >= gap & array[j - gap] > temp; j = j - gap) {
           array[j] = array[j - gap];
         }
 
