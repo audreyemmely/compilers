@@ -3,6 +3,8 @@ import { AnalisadorLexico } from './analisadorLexico';
 import { Token, TokenCat, TokenCategory as TC } from './token';
 import { Reconizer as RZ } from './reconizer';
 
+// ANALISADOR PREDITIVO RECURSIVO
+
 export class AnalisadorSintatico {
   tk: Token;
   cacheP: Token;
